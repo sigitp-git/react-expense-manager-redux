@@ -4,7 +4,7 @@ module.exports = {
   entry: './src/app.js',
   //entry: './src/playground/hoc.js',
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'public', 'js'),
     filename: 'bundle.js'
   },
   module: {
@@ -25,6 +25,7 @@ module.exports = {
   devtool: 'source-map',
   devServer: {
     contentBase: path.join(__dirname, 'public'),
-    historyApiFallback: true
+    historyApiFallback: true,
+    publicPath: '/js/'
   }
 };
