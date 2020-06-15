@@ -1,5 +1,6 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
+import numeral from 'numeral'
 
 const Item = ({ id, description, note, amount, createdAt }) => {
   const dateObj = new Date(createdAt)
@@ -15,7 +16,7 @@ const Item = ({ id, description, note, amount, createdAt }) => {
     <div>
     <NavLink to={`edit/${id}`}><h3>{description}</h3></NavLink>
       <p>
-        Amount: ${amount / 100} - Created On: {date}
+        Amount: {numeral(amount / 100).format('$0,0.00')} - Created On: {date}
       </p>
       <p>Note: {note}</p>
     </div>
