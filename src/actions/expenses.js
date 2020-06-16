@@ -64,4 +64,29 @@ const editExpense = (id, updates) => ({
   updates: updates,
 })
 
-export { addExpense, removeExpense, editExpense, funcAddExpense }
+
+
+// fetching from external DB
+
+const fetchExpenses = (expenses) => ({
+  type: 'FETCH_EXPENSES',
+  expenses
+})
+
+const funcFetchExpenses = (expensesData = {}) => {
+  return (dispatch) => {
+    // returning modified firebase snapshot {objects of expenses} into array[] of expenses objects{}
+    return database.ref('expenses').once('value').then((snapshot) => {
+      const expenses = []
+      snapshot.forEach((childSnap) => {
+        expenses.push({
+          id: childSnap.key,
+          ...childSnap.val()
+        })
+      })
+      dispatch(fetchExpenses(expenses))
+    })
+  }
+}
+
+export { addExpense, removeExpense, editExpense, funcAddExpense, fetchExpenses, funcFetchExpenses }
