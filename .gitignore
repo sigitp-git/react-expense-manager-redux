@@ -4,3 +4,4 @@ public/js
 database.rules.json
 firebase.json
 src/firebase/
+.env*
