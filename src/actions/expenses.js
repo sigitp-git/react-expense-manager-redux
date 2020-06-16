@@ -51,12 +51,28 @@ const addExpense = (expense) => ({
 //   },
 // })
 
-const removeExpense = ( id  = '') => ({
+const funcRemoveExpense = ( id = '' ) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense(id))
+    })
+  }
+}
+
+const removeExpense = ( id  = '' ) => ({
   type: 'REMOVE_EXPENSE',
   expense: {
     id: id,
   },
 })
+
+const funcEditExpense = (id, updates) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).update(updates).then(() => {
+      dispatch(editExpense(id, updates))
+    })
+  }
+}
 
 const editExpense = (id, updates) => ({
   type: 'EDIT_EXPENSE',
@@ -89,4 +105,4 @@ const funcFetchExpenses = (expensesData = {}) => {
   }
 }
 
-export { addExpense, removeExpense, editExpense, funcAddExpense, fetchExpenses, funcFetchExpenses }
+export { addExpense, removeExpense, editExpense, funcAddExpense, fetchExpenses, funcFetchExpenses, funcRemoveExpense, funcEditExpense }

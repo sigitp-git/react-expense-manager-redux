@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Form from './Form'
-import { editExpense, removeExpense } from '../actions/expenses'
+import { editExpense, removeExpense, funcRemoveExpense, funcEditExpense } from '../actions/expenses'
 
 const Edit = (props) => {
   return (
@@ -10,13 +10,13 @@ const Edit = (props) => {
         // this props.expense is going to be used by useEffect on the Form component
         expense={props.expense}
         onSubmit={(expense) => {
-          props.dispatch(editExpense(props.match.params.id, expense))
+          props.dispatch(funcEditExpense(props.match.params.id, expense))
           props.history.push('/')
         }}
       />
       <button
         onClick={() => {
-          props.dispatch(removeExpense(props.match.params.id))
+          props.dispatch(funcRemoveExpense(props.match.params.id))
           props.history.push('/')
         }}
       >
