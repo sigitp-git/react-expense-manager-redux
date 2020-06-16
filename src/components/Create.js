@@ -1,14 +1,16 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import Form from './Form'
-import { addExpense } from '../actions/expenses'
+//modified after redux-thunk to use the function action
+import { funcAddExpense } from '../actions/expenses'
+//import { addExpense } from '../actions/expenses'
 
 const Create = (props) => (
   <div>
     <h2>Create Expense</h2>
     <Form
       onSubmit={(expense) => {
-        props.dispatch(addExpense(expense))
+        props.dispatch(funcAddExpense(expense))
         props.history.push('/')
       }}
     />
