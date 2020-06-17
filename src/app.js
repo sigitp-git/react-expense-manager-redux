@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AppRouter from './routers/AppRouter'
+import AppRouter, { history } from './routers/AppRouter'
 import { Provider } from 'react-redux'
 // redux store --> connecting redux state and reducers, reducer returns new states objects based on dispatched action types
 import configureStore from './store/configureStore'
@@ -24,6 +24,8 @@ import getFilteredExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 import { firebase } from './firebase/firebase'
+// adding new redux state to store uid to make sure only logged in users can use the app
+import {login, logout} from './actions/auth'
 
 const store = configureStore()
 
@@ -87,9 +89,19 @@ const jsx = (
 
 // async fetch from external DB
 ReactDOM.render(<p>Loading data...</p>, document.getElementById('app'))
-store.dispatch(funcFetchExpenses()).then(() => {
-  ReactDOM.render(jsx, document.getElementById('app'))
-})
+
+// this moved to use onAuthStateChanged
+// store.dispatch(funcFetchExpenses()).then(() => {
+//   ReactDOM.render(jsx, document.getElementById('app'))
+// })
+
+let hasRendered = false
+const renderApp = () => {
+  if (!hasRendered) {
+    ReactDOM.render(jsx, document.getElementById('app'))
+    hasRendered = true
+  }
+}
 
 //Regular non-async show of expenses data
 //ReactDOM.render(jsx, document.getElementById('app'))
@@ -97,10 +109,23 @@ store.dispatch(funcFetchExpenses()).then(() => {
 // from firebase/firebase.js defining googleAuthProvider, to actions/auth.js to call the popup
 // followed up by these lines to check onAuthStateChanged
 // logout will be put on Header.js component
+// this app.js does not have props.history api, because this is not part of AppRouter/BrowserRouter component
+// modify AppRouter.js to get the history api here (yarn add history@4.10.1) 5.0.0 has bugs
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
-    console.log('log in')
+    // to maintain state, keep the user.uid in the auth reducer and create handling in auth actions
+    console.log('logged in, uid :', user.uid)
+    store.dispatch(login(user.uid))
+    store.dispatch(funcFetchExpenses()).then(() => {
+      renderApp()
+      if (history.location.pathname === '/') {
+        history.push('/dashboard')
+      }
+    })
   } else {
-    console.log('log out')
+    console.log('logged out')
+    store.dispatch(logout())
+    renderApp()
+    history.push('/')
   }
 })

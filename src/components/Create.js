@@ -11,7 +11,7 @@ const Create = (props) => (
     <Form
       onSubmit={(expense) => {
         props.dispatch(funcAddExpense(expense))
-        props.history.push('/')
+        props.history.push('/dashboard')
       }}
     />
   </div>

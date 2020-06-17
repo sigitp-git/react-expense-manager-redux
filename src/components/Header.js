@@ -12,9 +12,6 @@ const Header = (props) => (
     <NavLink to='/create' activeClassName='is-active'>
       Create
     </NavLink>
-    <NavLink to='/help' activeClassName='is-active'>
-      Help
-    </NavLink>
     <button
       onClick={() => {
         props.dispatch(startLogout())
