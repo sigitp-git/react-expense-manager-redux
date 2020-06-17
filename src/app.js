@@ -5,7 +5,13 @@ import { Provider } from 'react-redux'
 // redux store --> connecting redux state and reducers, reducer returns new states objects based on dispatched action types
 import configureStore from './store/configureStore'
 // redux actions --> called by store.dispatch() --> sending objects of reducer types + required arguments
-import { funcAddExpense, funcFetchExpenses, addExpense, removeExpense, editExpense } from './actions/expenses'
+import {
+  funcAddExpense,
+  funcFetchExpenses,
+  addExpense,
+  removeExpense,
+  editExpense,
+} from './actions/expenses'
 import {
   setTextFilter,
   sortByAmount,
@@ -17,7 +23,7 @@ import {
 import getFilteredExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 import './styles/styles.scss'
-import './firebase/firebase'
+import { firebase } from './firebase/firebase'
 
 const store = configureStore()
 
@@ -87,3 +93,14 @@ store.dispatch(funcFetchExpenses()).then(() => {
 
 //Regular non-async show of expenses data
 //ReactDOM.render(jsx, document.getElementById('app'))
+
+// from firebase/firebase.js defining googleAuthProvider, to actions/auth.js to call the popup
+// followed up by these lines to check onAuthStateChanged
+// logout will be put on Header.js component
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    console.log('log in')
+  } else {
+    console.log('log out')
+  }
+})
