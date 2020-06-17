@@ -142,15 +142,5 @@ export {
 
 
 // privatize firebase real-time db on rules section on the firebase realtime db console:
-// {
-//   "rules": {
-//     ".read": false,
-//     ".write": false,
-//     "users": {
-//       "$user_id": {
-//         ".read": "$user_id ===  auth.uid",
-//         ".write": "$user_id ===  auth.uid"
-//       }
-//     }
-//   }
-// }
+// server side data validation, users can only add expenses but not other types
+// firebase_authrule_datavalidator.json
