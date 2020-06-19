@@ -65,31 +65,38 @@ const Form = (props) => {
   }, [props.expense])
 
   return (
-    <div>
-      <DatePicker value={datePicker} onChange={onDatePickChange} />
-      {status && <p>{status}</p>}
-      <form onSubmit={onSubmit}>
-        <input
-          type='text'
-          placeholder='expense description...'
-          autoFocus
-          value={desc}
-          onChange={(e) => onChangeDesc(e)}
-        />
-        <input
-          type='text'
-          placeholder='amount...'
-          value={amt}
-          onChange={(e) => onChangeAmt(e)}
-        />
-        <textarea
-          placeholder='note... (optional)'
-          value={note}
-          onChange={(e) => onChangeNote(e)}
-        ></textarea>
-        <button>submit</button>
-      </form>
-    </div>
+    <form className='form' onSubmit={onSubmit}>
+      {status && <p className='form__status'>{status}</p>}
+      <DatePicker
+        className='date-picker'
+        value={datePicker}
+        onChange={onDatePickChange}
+      />
+      <input
+        className='text-input'
+        type='text'
+        placeholder='expense description...'
+        autoFocus
+        value={desc}
+        onChange={(e) => onChangeDesc(e)}
+      />
+      <input
+        className='text-input'
+        type='text'
+        placeholder='amount...'
+        value={amt}
+        onChange={(e) => onChangeAmt(e)}
+      />
+      <textarea
+        className='textarea'
+        placeholder='note... (optional)'
+        value={note}
+        onChange={(e) => onChangeNote(e)}
+      ></textarea>
+      <div>
+        <button className='button button--dark'>Save</button>
+      </div>
+    </form>
   )
 }
 

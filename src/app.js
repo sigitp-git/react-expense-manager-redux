@@ -25,7 +25,8 @@ import 'normalize.css/normalize.css'
 import './styles/styles.scss'
 import { firebase } from './firebase/firebase'
 // adding new redux state to store uid to make sure only logged in users can use the app
-import {login, logout} from './actions/auth'
+import { login, logout } from './actions/auth'
+import Loading from './components/Loading'
 
 const store = configureStore()
 
@@ -88,7 +89,7 @@ const jsx = (
 )
 
 // async fetch from external DB
-ReactDOM.render(<p>Loading data...</p>, document.getElementById('app'))
+ReactDOM.render(<Loading />, document.getElementById('app'))
 
 // this moved to use onAuthStateChanged
 // store.dispatch(funcFetchExpenses()).then(() => {
@@ -114,7 +115,7 @@ const renderApp = () => {
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     // to maintain state, keep the user.uid in the auth reducer and create handling in auth actions
-    console.log('logged in, uid :', user.uid)
+    //console.log('logged in, uid :', user.uid)
     store.dispatch(login(user.uid))
     store.dispatch(funcFetchExpenses()).then(() => {
       renderApp()
@@ -123,7 +124,7 @@ firebase.auth().onAuthStateChanged((user) => {
       }
     })
   } else {
-    console.log('logged out')
+    //console.log('logged out')
     store.dispatch(logout())
     renderApp()
     history.push('/')

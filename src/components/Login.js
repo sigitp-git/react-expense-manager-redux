@@ -3,14 +3,19 @@ import { connect } from 'react-redux'
 import { startLogin } from '../actions/auth'
 
 const Login = (props) => (
-  <div>
-    <button
-      onClick={() => {
-        props.dispatch(startLogin())
-      }}
-    >
-      Login
-    </button>
+  <div className='box-layout'>
+    <div className='box-layout__box'>
+      <h1 className='box-layout__title'>Expense Manager</h1>
+      <p className='box-layout__subtitle'>Your expenses, managed!</p>
+      <button
+        className='button'
+        onClick={() => {
+          props.dispatch(startLogin())
+        }}
+      >
+        Login with Google
+      </button>
+    </div>
   </div>
 )
 

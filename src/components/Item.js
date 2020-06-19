@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import numeral from 'numeral'
 
 const Item = ({ id, description, note, amount, createdAt }) => {
@@ -13,13 +13,16 @@ const Item = ({ id, description, note, amount, createdAt }) => {
   })
 
   return (
-    <div>
-    <NavLink to={`edit/${id}`}><h3>{description}</h3></NavLink>
-      <p>
-        Amount: {numeral(amount / 100).format('$0,0.00')} - Created On: {date}
-      </p>
-      <p>Note: {note}</p>
-    </div>
+    <Link className='list-item' to={`edit/${id}`}>
+      <div>
+        <h3 className='list-item__title'>{description}</h3>
+        <span className='list-item__subtitle'>Created On: {date}</span>
+        <p className='list-item__subtitle'>Note: {note}</p>
+      </div>
+      <div>
+        <h3 className='list-item__data'>{numeral(amount / 100).format('$0,0.00')}</h3>
+      </div>
+    </Link>
   )
 }
 

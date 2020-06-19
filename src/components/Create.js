@@ -7,13 +7,19 @@ import { funcAddExpense } from '../actions/expenses'
 
 const Create = (props) => (
   <div>
-    <h2>Create Expense</h2>
-    <Form
-      onSubmit={(expense) => {
-        props.dispatch(funcAddExpense(expense))
-        props.history.push('/dashboard')
-      }}
-    />
+    <div className='page-header'>
+      <div className='content-container'>
+        <h1 className='page-header__title'>Create Expense</h1>
+      </div>
+    </div>
+    <div className="content-container">
+      <Form
+        onSubmit={(expense) => {
+          props.dispatch(funcAddExpense(expense))
+          props.history.push('/dashboard')
+        }}
+      />
+    </div>
   </div>
 )
 

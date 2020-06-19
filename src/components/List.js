@@ -9,19 +9,21 @@ import { connect } from 'react-redux'
 
 // props passed by mapStateToProps(), the props contains props.expenses
 const List = (props) => (
-  <div>
-    <h2>Expense List</h2>
-    <h3>
-      Viewing {props.expenses.length} expenses, total:{' '}
-      {numeral(
-        props.expenses.reduce((acc, cur) => {
-          return acc + cur.amount
-        }, 0) / 100
-      ).format('$0,0.00')}
-    </h3>
-    {props.expenses.map((item) => (
-      <Item key={item.id} {...item} />
-    ))}
+  <div className='content-container'>
+    <div className='list-header'>
+      <div className='show-for-mobile'>Expenses</div>
+      <div className='show-for-desktop'>Expense</div>
+      <div className='show-for-desktop'>Amount</div>
+    </div>
+    <div className='list-body'>
+      {props.expenses.length === 0 ? (
+        <div className='list-item list-item--empty'>
+          <span>No expenses entered</span>
+        </div>
+      ) : (
+        props.expenses.map((item) => <Item key={item.id} {...item} />)
+      )}
+    </div>
   </div>
 )
 

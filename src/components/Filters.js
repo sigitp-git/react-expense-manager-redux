@@ -47,29 +47,47 @@ const Filters = (props) => {
   // console.log(props.filters.endDate)
 
   return (
-    <div>
-      <input
-        type='text'
-        value={props.filters.text}
-        onChange={(e) => props.dispatch(setTextFilter(e.target.value))}
-      />
-      <select
-        value={props.filters.sortBy}
-        onChange={(e) => {
-          if (e.target.value === 'date') {
-            props.dispatch(sortByDate())
-          } else if (e.target.value === 'amount') {
-            props.dispatch(sortByAmount())
-          }
-        }}
-      >
-        <option value='date'>Date</option>
-        <option value='amount'>Amount</option>
-      </select>
-      <DateRangePicker value={datePicker} onChange={onDatePickChange} />{' '}
-      <small>
-        click start-date, click and drag towards end-date, click end-date
-      </small>
+    <div className='content-container'>
+      <div className='input-group'>
+        <div className='input-group__item'>
+          <input
+            className='text-input'
+            type='text'
+            placeholder='Search...'
+            value={props.filters.text}
+            onChange={(e) => props.dispatch(setTextFilter(e.target.value))}
+          />
+        </div>
+        <div className='input-group__item'>
+          <select
+            className='select'
+            value={props.filters.sortBy}
+            onChange={(e) => {
+              if (e.target.value === 'date') {
+                props.dispatch(sortByDate())
+              } else if (e.target.value === 'amount') {
+                props.dispatch(sortByAmount())
+              }
+            }}
+          >
+            <option value='date'>Date</option>
+            <option value='amount'>Amount</option>
+          </select>
+        </div>
+        <div>
+          <DateRangePicker
+            className='date-picker'
+            value={datePicker}
+            onChange={onDatePickChange}
+          />
+        </div>
+      </div>
+      <p style={{ textAlign: 'left' }}>
+        <small>
+          * to select date range: click start-date and drag towards end-date,
+          click end-date
+        </small>
+      </p>
     </div>
   )
 }
